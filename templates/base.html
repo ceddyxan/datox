@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Datox Jars - Premium Storage Solutions{% endblock %}</title>
+    
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Modern Design System -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern.css') }}">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23d97706'/><path fill='white' d='M30 40h40v20H30z'/></svg>">
+</head>
+<body class="bg-gray-50">
+    <!-- Modern Header -->
+    <header class="header-modern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <a href="{{ url_for('home') }}" class="flex items-center space-x-3">
+                        <img src="{{ url_for('static', filename='uploads/logo.jpg') }}" alt="Datox Jars Logo" class="h-10 w-10 rounded-lg object-cover">
+                        <span class="text-xl font-bold text-gray-900">Datox Jars</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Home</a>
+                    <div class="relative group">
+                        <button class="text-gray-600 hover:text-amber-600 font-medium transition-colors flex items-center space-x-1">
+                            <span>All Products</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="py-2">
+                                <a href="{{ url_for('category_page', category='glasses') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700">Glasses</a>
+                                <a href="{{ url_for('category_page', category='plastics') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700">Plastics</a>
+                                <a href="{{ url_for('category_page', category='herbs-spices') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700">Herbs & Spices</a>
+                                <a href="{{ url_for('category_page', category='capsules') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700">Capsules</a>
+                                <a href="{{ url_for('category_page', category='cosmetics') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700">Cosmetics</a>
+                                <a href="{{ url_for('category_page', category='supplements') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700">Supplements</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('about') }}" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">About</a>
+                    <a href="{{ url_for('contact') }}" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <!-- Cart Button -->
+                <div class="flex items-center space-x-4">
+                    <button data-action="navigate-to-cart" class="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="absolute -top-1 -right-1 bg-amber-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden p-2 rounded-lg hover:bg-gray-100" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="{{ url_for('home') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Home</a>
+                <a href="{{ url_for('category_page', category='glasses') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Glasses</a>
+                <a href="{{ url_for('category_page', category='plastics') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Plastics</a>
+                <a href="{{ url_for('category_page', category='herbs-spices') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Herbs & Spices</a>
+                <a href="{{ url_for('category_page', category='capsules') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Capsules</a>
+                <a href="{{ url_for('category_page', category='cosmetics') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Cosmetics</a>
+                <a href="{{ url_for('category_page', category='supplements') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Supplements</a>
+                <a href="{{ url_for('about') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">About</a>
+                <a href="{{ url_for('contact') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Modern Footer -->
+    <footer class="footer-modern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="logo-modern text-2xl mb-4">Datox Jars</div>
+                    <p class="text-slate-400 mb-4 max-w-md">
+                        Premium storage solutions for modern living. Quality products designed to organize and beautify your space.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-amber-400 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-amber-400 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-amber-400 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.689-.07-4.948 0-3.259.014-3.668.072-4.948.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('home') }}" class="footer-link-modern">Home</a></li>
+                        <li><a href="{{ url_for('category_page', category='glasses') }}" class="footer-link-modern">Glasses</a></li>
+                        <li><a href="{{ url_for('category_page', category='plastics') }}" class="footer-link-modern">Plastics</a></li>
+                        <li><a href="{{ url_for('about') }}" class="footer-link-modern">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Support -->
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('contact') }}" class="footer-link-modern">Contact</a></li>
+                        <li><a href="{{ url_for('cart') }}" class="footer-link-modern">Shopping Cart</a></li>
+                        <li><a href="{{ url_for('checkout') }}" class="footer-link-modern">Checkout</a></li>
+                        <li><a href="#" class="footer-link-modern">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-700 mt-8 pt-8 text-center">
+                <p class="text-slate-400">
+                    &copy; 2024 Datox Jars. All rights reserved. | Premium Storage Solutions
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Initialize cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/get_cart_count')
+                .then(response => response.json())
+                .then(data => {
+                    const cartCount = document.getElementById('cart-count');
+                    if (cartCount) {
+                        cartCount.textContent = data.count;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching cart count:', error);
+                });
+                
+            // Add event listener for cart button
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('[data-action="navigate-to-cart"]')) {
+                    window.location.href = '/cart';
+                }
+            });
+        });
+    </script>
+
+    <!-- Carousel JavaScript -->
+    <script>
+        // Carousel state management
+        const carouselStates = {};
+
+        function initCarousel(productId) {
+            if (!carouselStates[productId]) {
+                carouselStates[productId] = {
+                    currentSlide: 0,
+                    totalSlides: document.querySelectorAll(`[data-product-id="${productId}"] .carousel-slide`).length
+                };
+            }
+        }
+
+        function showSlide(productId, slideIndex) {
+            const slides = document.querySelectorAll(`[data-product-id="${productId}"] .carousel-slide`);
+            const indicators = document.querySelectorAll(`[data-product-id="${productId}"] [data-indicator]`);
+            
+            if (slides.length === 0) return;
+            
+            const state = carouselStates[productId];
+            state.currentSlide = (slideIndex + state.totalSlides) % state.totalSlides;
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('opacity-100'));
+            slides.forEach(slide => slide.classList.add('opacity-0'));
+            
+            // Show current slide
+            slides[state.currentSlide].classList.remove('opacity-0');
+            slides[state.currentSlide].classList.add('opacity-100');
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                if (index === state.currentSlide) {
+                    indicator.classList.remove('bg-white/50');
+                    indicator.classList.add('bg-white', 'w-6');
+                } else {
+                    indicator.classList.remove('bg-white', 'w-6');
+                    indicator.classList.add('bg-white/50');
+                }
+            });
+        }
+
+        function prevSlide(productId) {
+            const state = carouselStates[productId];
+            showSlide(productId, state.currentSlide - 1);
+        }
+
+        function nextSlide(productId) {
+            const state = carouselStates[productId];
+            showSlide(productId, state.currentSlide + 1);
+        }
+
+        function goToSlide(productId, slideIndex) {
+            showSlide(productId, slideIndex);
+        }
+
+        function startAutoRotate(productId) {
+            if (carouselStates[productId].interval) {
+                clearInterval(carouselStates[productId].interval);
+            }
+            
+            carouselStates[productId].interval = setInterval(() => {
+                nextSlide(productId);
+            }, 3000);
+        }
+
+        // Global carousel event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to carousel controls
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('[data-action]')) {
+                    const button = e.target.closest('[data-action]');
+                    const action = button.getAttribute('data-action');
+                    const productId = button.getAttribute('data-product-id');
+                    
+                    if (action === 'prev') {
+                        prevSlide(productId);
+                    } else if (action === 'next') {
+                        nextSlide(productId);
+                    } else if (action === 'goto') {
+                        const slideIndex = parseInt(button.getAttribute('data-slide'));
+                        goToSlide(productId, slideIndex);
+                    }
+                }
+            });
+            
+            // Initialize carousel containers
+            document.querySelectorAll('.carousel-container').forEach(container => {
+                const productId = container.getAttribute('data-product-id');
+                if (productId) {
+                    const slides = container.querySelectorAll('.carousel-slide');
+                    
+                    if (slides.length > 0) {
+                        initCarousel(productId);
+                        // Start auto-rotate if more than 1 image
+                        if (slides.length > 1) {
+                            startAutoRotate(productId);
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Modern Header Scroll Effect
+        let lastScroll = 0;
+        const header = document.querySelector('.header-modern');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Modern Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Modern Loading States
+        const addLoadingStates = () => {
+            // Add loading skeleton for images
+            document.querySelectorAll('img').forEach(img => {
+                if (!img.complete) {
+                    img.style.opacity = '0';
+                    img.addEventListener('load', () => {
+                        img.style.transition = 'opacity 0.3s ease';
+                        img.style.opacity = '1';
+                    });
+                }
+            });
+        };
+        
+        // Initialize modern features
+        addLoadingStates();
+        
+        // Modern Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.card-modern, .btn-modern').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

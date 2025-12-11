@@ -1,0 +1,183 @@
+<section class="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4 tracking-tight">Shop By Category</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Find the perfect storage solution for your needs
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:border-blue-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-blue-600/10 group-hover:from-blue-500/20 group-hover:to-blue-600/20 transition-all duration-300"></div>
+                    {% set glasses_products = get_products_by_category('glasses') %}
+                    {% if glasses_products %}
+                        {% set first_glass_image = glasses_products[0].image %}
+                        <img src="{{ url_for('static', filename=first_glass_image) }}" alt="Glass Jars" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&h=200&fit=crop&crop=center" alt="Glass Jars" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Glasses</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">Premium glass jars and containers</p>
+                    <a href="{{ url_for('category_page', category='glasses') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Shop Glasses
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:border-green-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-green-600/10 group-hover:from-green-500/20 group-hover:to-green-600/20 transition-all duration-300"></div>
+                    {% set plastics_products = get_products_by_category('plastics') %}
+                    {% if plastics_products %}
+                        {% set first_plastic_image = plastics_products[0].image %}
+                        <img src="{{ url_for('static', filename=first_plastic_image) }}" alt="Plastics" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <svg class="w-16 h-16 text-green-600 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 2h10v3H7z" opacity="0.8"/>
+                            <path d="M5 5h14v14H5z" fill="currentColor" opacity="0.3"/>
+                            <rect x="7" y="7" width="10" height="8" fill="currentColor" opacity="0.4"/>
+                            <ellipse cx="12" cy="7" rx="5" ry="1.5" fill="currentColor" opacity="0.6"/>
+                            <ellipse cx="12" cy="15" rx="5" ry="1.5" fill="currentColor" opacity="0.6"/>
+                            <path d="M9 19h6v2H9z" opacity="0.8"/>
+                            <rect x="11" y="10" width="2" height="4" fill="currentColor" opacity="0.5"/>
+                            <circle cx="12" cy="12" r="1" fill="currentColor" opacity="0.4"/>
+                        </svg>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Plastics</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">Durable plastic storage solutions</p>
+                    <a href="{{ url_for('category_page', category='plastics') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Shop Plastics
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:border-amber-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-amber-600/10 group-hover:from-amber-500/20 group-hover:to-amber-600/20 transition-all duration-300"></div>
+                    {% set herbs_products = get_products_by_category('herbs-spices') %}
+                    {% if herbs_products %}
+                        {% set first_herb_image = herbs_products[0].image %}
+                        <img src="{{ url_for('static', filename=first_herb_image) }}" alt="Herbs & Spices" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <svg class="w-16 h-16 text-amber-600 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 2h6v3H9z" opacity="0.8"/>
+                            <path d="M7 5h10v12H7z" fill="currentColor" opacity="0.3"/>
+                            <rect x="9" y="7" width="6" height="7" fill="currentColor" opacity="0.4"/>
+                            <ellipse cx="12" cy="7" rx="3" ry="1" fill="currentColor" opacity="0.6"/>
+                            <ellipse cx="12" cy="14" rx="3" ry="1" fill="currentColor" opacity="0.6"/>
+                            <path d="M8 17h8v2H8z" opacity="0.8"/>
+                            <circle cx="11" cy="10" r="0.8" fill="currentColor" opacity="0.7"/>
+                            <circle cx="13" cy="11" r="0.8" fill="currentColor" opacity="0.7"/>
+                            <circle cx="12" cy="12" r="0.8" fill="currentColor" opacity="0.7"/>
+                            <circle cx="10" cy="13" r="0.6" fill="currentColor" opacity="0.6"/>
+                            <circle cx="14" cy="10" r="0.6" fill="currentColor" opacity="0.6"/>
+                        </svg>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">Herbs & Spices</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">Organize your kitchen essentials</p>
+                    <a href="{{ url_for('category_page', category='herbs-spices') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Shop Herbs & Spices
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:border-purple-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-purple-600/10 group-hover:from-purple-500/20 group-hover:to-purple-600/20 transition-all duration-300"></div>
+                    {% set capsules_products = get_products_by_category('capsules') %}
+                    {% if capsules_products %}
+                        {% set first_capsule_image = capsules_products[0].image %}
+                        <img src="{{ url_for('static', filename=first_capsule_image) }}" alt="Capsules" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <svg class="w-16 h-16 text-purple-600 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                            <ellipse cx="12" cy="12" rx="8" ry="5" fill="currentColor" opacity="0.3"/>
+                            <ellipse cx="12" cy="12" rx="8" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 7v10" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                            <circle cx="12" cy="14" r="1" fill="currentColor"/>
+                        </svg>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Capsules</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">Pill organizers and supplement storage</p>
+                    <a href="{{ url_for('category_page', category='capsules') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Shop Capsules
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:border-pink-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-br from-pink-50 to-pink-100 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-pink-600/10 group-hover:from-pink-500/20 group-hover:to-pink-600/20 transition-all duration-300"></div>
+                    {% set cosmetics_products = get_products_by_category('cosmetics') %}
+                    {% if cosmetics_products %}
+                        {% set first_cosmetic_image = cosmetics_products[0].image %}
+                        <img src="{{ url_for('static', filename=first_cosmetic_image) }}" alt="Cosmetics" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <svg class="w-16 h-16 text-pink-600 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" opacity="0.3"/>
+                            <rect x="8" y="8" width="8" height="6" fill="currentColor" opacity="0.4"/>
+                            <circle cx="12" cy="11" r="2" fill="currentColor" opacity="0.6"/>
+                            <path d="M10 16h4v2H10z"/>
+                            <path d="M9 4h6v2H9z"/>
+                        </svg>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition-colors">Cosmetics</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">Beautiful jars for beauty products</p>
+                    <a href="{{ url_for('category_page', category='cosmetics') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Shop Cosmetics
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:border-red-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-2">
+                <div class="h-48 bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-600/10 group-hover:from-red-500/20 group-hover:to-red-600/20 transition-all duration-300"></div>
+                    {% set supplements_products = get_products_by_category('supplements') %}
+                    {% if supplements_products %}
+                        {% set first_supplement_image = supplements_products[0].image %}
+                        <img src="{{ url_for('static', filename=first_supplement_image) }}" alt="Supplements" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=center" alt="Supplements" class="w-24 h-24 object-cover rounded-xl relative z-10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">Supplements</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">Storage for vitamins and supplements</p>
+                    <a href="{{ url_for('category_page', category='supplements') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        Shop Supplements
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

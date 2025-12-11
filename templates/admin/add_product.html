@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Add Product - Admin{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-6">
+                <h1 class="text-2xl font-bold text-white">Add New Product</h1>
+                <p class="text-amber-100 mt-1">Fill in the details below to add a new product</p>
+            </div>
+            
+            <form method="POST" enctype="multipart/form-data" class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Product Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
+                        <input type="text" name="name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                               placeholder="Enter product name">
+                    </div>
+                    
+                    <!-- Category -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select name="category" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">
+                            <option value="">Select category</option>
+                            <option value="glasses">Glasses</option>
+                            <option value="plastics">Plastics</option>
+                            <option value="herbs-spices">Herbs & Spices</option>
+                            <option value="capsules">Capsules</option>
+                            <option value="cosmetics">Cosmetics</option>
+                            <option value="supplements">Supplements</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Price -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Price (Kshs.) *</label>
+                        <input type="number" name="price" required step="0.01" min="0"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                               placeholder="0.00">
+                        <p class="text-xs text-gray-500 mt-1">Enter price in Kenyan Shillings</p>
+                    </div>
+                    
+                    <!-- Stock Status -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Stock Status</label>
+                        <div class="flex items-center space-x-4 mt-3">
+                            <label class="flex items-center">
+                                <input type="radio" name="in_stock" value="true" checked class="mr-2 text-amber-600">
+                                <span class="text-gray-700">In Stock</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="in_stock" value="false" class="mr-2 text-amber-600">
+                                <span class="text-gray-700">Out of Stock</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                        <textarea name="description" required rows="4"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                                  placeholder="Enter product description"></textarea>
+                    </div>
+                    
+                    <!-- Product Images -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Images *</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-amber-500 transition-colors">
+                            <input type="file" name="images" accept="image/*" multiple class="hidden" id="images-upload">
+                            <label for="images-upload" class="cursor-pointer">
+                                <svg class="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <p class="text-gray-600 mb-2">Click to upload product images</p>
+                                <p class="text-sm text-gray-500">You can select multiple images for carousel</p>
+                                <p class="text-xs text-gray-400">PNG, JPG, GIF up to 10MB each</p>
+                            </label>
+                        </div>
+                        <div id="image-preview-container" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Available Sizes -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Available Sizes</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2">
+                                <input type="text" name="sizes" placeholder="e.g., Small, Medium, Large"
+                                       class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <button type="button" onclick="addSizeField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="sizes-container"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Available Colors -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Available Colors</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2">
+                                <input type="text" name="colors" placeholder="e.g., Red, Blue, Green"
+                                       class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <button type="button" onclick="addColorField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="colors-container"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                    <a href="{{ url_for('admin_dashboard') }}" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-medium">
+                        Cancel
+                    </a>
+                    <div class="space-x-3">
+                        <button type="reset" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-medium">
+                            Reset
+                        </button>
+                        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-xl hover:from-amber-600 hover:to-amber-700 transition-all font-medium shadow-md hover:shadow-lg">
+                            Add Product
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Multiple image preview
+document.getElementById('images-upload').addEventListener('change', function(e) {
+    const files = e.target.files;
+    const container = document.getElementById('image-preview-container');
+    container.innerHTML = '';
+    
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.className = 'relative group';
+                div.innerHTML = `
+                    <img src="${e.target.result}" class="w-full h-32 object-cover rounded-lg">
+                    <button type="button" onclick="this.parentElement.remove()" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                `;
+                container.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+});
+
+// Add size field
+function addSizeField() {
+    const container = document.getElementById('sizes-container');
+    const div = document.createElement('div');
+    div.className = 'flex items-center space-x-2 mt-2';
+    div.innerHTML = `
+        <input type="text" name="sizes" placeholder="Size"
+               class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    `;
+    container.appendChild(div);
+}
+
+// Add color field
+function addColorField() {
+    const container = document.getElementById('colors-container');
+    const div = document.createElement('div');
+    div.className = 'flex items-center space-x-2 mt-2';
+    div.innerHTML = `
+        <input type="text" name="colors" placeholder="Color"
+               class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    `;
+    container.appendChild(div);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% if title %}
+<section class="py-16 bg-gradient-to-br from-amber-50 to-orange-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-heading">{{ title }}</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto text-body">{{ subtitle }}</p>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {% for product in products %}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-amber-200 transition-all duration-300 group cursor-pointer transform hover:-translate-y-0.5">
+                <div class="relative overflow-hidden">
+                    <!-- Image Carousel -->
+                    <div class="carousel-container relative h-48" data-product-id="{{ product.id }}">
+                        {% if product.images and product.images|length > 0 %}
+                            {% set images = product.images %}
+                        {% else %}
+                            {% set images = [product.image] %}
+                        {% endif %}
+                        
+                        {% for img in images %}
+                        <div class="carousel-slide absolute inset-0 transition-opacity duration-300 {% if loop.first %}opacity-100{% else %}opacity-0{% endif %}" data-slide="{{ loop.index0 }}">
+                            <img src="{{ url_for('static', filename=img) }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+                        </div>
+                        {% endfor %}
+                        
+                        <!-- Carousel Controls -->
+                        {% if images|length > 1 %}
+                        <button data-action="prev" data-product-id="{{ product.id }}" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button data-action="next" data-product-id="{{ product.id }}" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Slide Indicators -->
+                        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {% for img in images %}
+                            <button data-action="goto" data-product-id="{{ product.id }}" data-slide="{{ loop.index0 }}" class="w-2 h-2 rounded-full transition-all {% if loop.first %}bg-white w-6{% else %}bg-white/50{% endif %}" data-indicator="{{ loop.index0 }}"></button>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="p-3">
+                    <h3 class="text-sm font-bold text-gray-900 mb-1">{{ product.name }}</h3>
+                    <p class="text-xs text-gray-600 mb-2">{{ product.category }}</p>
+                    <p class="text-sm font-semibold text-amber-600 mb-2">Kshs. {{ product.price | currency_format }}</p>
+                    <button 
+                        onclick="addToCart('{{ product.id }}')" 
+                        class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-2 px-3 rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 {% if not product.in_stock %}opacity-50 cursor-not-allowed{% endif %}"
+                        {% if not product.in_stock %}disabled{% endif %}>
+                        {% if product.in_stock %}Add to Cart{% else %}Out of Stock{% endif %}
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

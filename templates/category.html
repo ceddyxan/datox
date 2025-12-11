@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category }} - Datox Jars{% endblock %}
+
+{% block content %}
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ category }}</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                {% if products %}
+                    Discover our premium {{ category.lower() }} collection
+                {% else %}
+                    No products found in this category
+                {% endif %}
+            </p>
+        </div>
+        
+        {% if products %}
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {% for product in products %}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-amber-200 transition-all duration-300 group cursor-pointer transform hover:-translate-y-0.5">
+                <div class="relative overflow-hidden">
+                    <!-- Image Carousel -->
+                    <div class="carousel-container relative h-48" data-product-id="{{ product.id }}">
+                        {% if product.images and product.images|length > 0 %}
+                            {% set images = product.images %}
+                        {% else %}
+                            {% set images = [product.image] %}
+                        {% endif %}
+                        
+                        {% for img in images %}
+                        <div class="carousel-slide absolute inset-0 transition-opacity duration-300 {% if loop.first %}opacity-100{% else %}opacity-0{% endif %}" data-slide="{{ loop.index0 }}">
+                            <img src="{{ url_for('static', filename=img) }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+                        </div>
+                        {% endfor %}
+                        
+                        <!-- Carousel Controls -->
+                        {% if images|length > 1 %}
+                        <button data-action="prev" data-product-id="{{ product.id }}" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button data-action="next" data-product-id="{{ product.id }}" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Slide Indicators -->
+                        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {% for img in images %}
+                            <button data-action="goto" data-product-id="{{ product.id }}" data-slide="{{ loop.index0 }}" class="w-2 h-2 rounded-full transition-all {% if loop.first %}bg-white w-6{% else %}bg-white/50{% endif %}" data-indicator="{{ loop.index0 }}"></button>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if not product.in_stock %}
+                    <div class="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+                        Out of Stock
+                    </div>
+                    {% endif %}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-3">
+                    <h3 class="text-sm font-bold text-gray-900 mb-1 group-hover:text-amber-600 transition-colors">{{ product.name }}</h3>
+                    <p class="text-gray-600 text-xs mb-2 line-clamp-2">{{ product.description }}</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-lg font-bold text-amber-700">Kshs. {{ product.price | currency_format }}</span>
+                        <span class="text-xs bg-amber-50 text-amber-700 px-2 py-1 rounded-full font-medium">{{ product.category }}</span>
+                    </div>
+                    {% if product.sizes %}
+                    <div class="mb-3">
+                        <p class="text-sm text-gray-600 mb-2 font-medium">Available sizes:</p>
+                        <div class="flex flex-wrap gap-1">
+                            {% for size in product.sizes %}
+                            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md hover:bg-amber-50 hover:text-amber-700 transition-colors">{{ size }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if product.colors %}
+                    <div class="mb-4">
+                        <p class="text-sm text-gray-600 mb-2 font-medium">Available colors:</p>
+                        <div class="flex flex-wrap gap-1">
+                            {% for color in product.colors %}
+                            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md hover:bg-amber-50 hover:text-amber-700 transition-colors">{{ color }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <button 
+                        onclick="addToCart('{{ product.id }}')" 
+                        class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-2 px-3 rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm {% if not product.in_stock %}opacity-50 cursor-not-allowed{% endif %}"
+                        {% if not product.in_stock %}disabled{% endif %}>
+                        {% if product.in_stock %}Add to Cart{% else %}Out of Stock{% endif %}
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <svg class="w-24 h-24 text-gray-300 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd"/>
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-600 mb-2">No products found</h3>
+            <p class="text-gray-500 mb-6">We don't have any products in this category yet.</p>
+            <a href="{{ url_for('home') }}" class="bg-amber-600 text-white px-6 py-3 rounded hover:bg-amber-700 transition">
+                Continue Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Cart functionality
+function addToCart(productId) {
+    fetch('/add_to_cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            product_id: productId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateCartDisplay(data.cart_count, data.cart_total);
+            // Show success message
+            showNotification('Product added to cart!', 'success');
+        } else {
+            showNotification('Error adding product to cart', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Error adding product to cart', 'error');
+    });
+}
+
+function updateCartDisplay(cartCount, cartTotal) {
+    // Update cart button count if it exists
+    const cartButton = document.getElementById('cart-count');
+    if (cartButton) {
+        cartButton.textContent = cartCount;
+    }
+}
+
+function showNotification(message, type) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all transform translate-x-full ${
+        type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+    }`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Slide in
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+</script>
+{% endblock %}

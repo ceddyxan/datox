@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Datox Jars - Premium Storage Solutions{% endblock %}
+
+{% block content %}
+{% include 'components/hero.html' %}
+
+<div id="shop-by-category">
+    {% include 'components/shop_by_category.html' %}
+</div>
+
+{% include 'components/product_section.html' with context %}
+
+{% include 'components/shop_the_look.html' %}
+
+<div id="explore">
+    {% include 'components/explore.html' %}
+</div>
+
+{% include 'components/product_section.html' with context %}
+{% endblock %}

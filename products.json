@@ -1,0 +1,75 @@
+[
+  {
+    "id": "1",
+    "name": "1 Liter Glass Jar",
+    "category": "glasses",
+    "price": 200.0,
+    "description": "Glass Jar For your products",
+    "image": "uploads/20251208_024335_1_litres_glass_jar__200.jpeg",
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-08T02:43:35.842707"
+  },
+  {
+    "id": "2",
+    "name": "2 Litres Glass Jar",
+    "category": "glasses",
+    "price": 400.0,
+    "description": "Glass Jar for your products",
+    "image": "uploads/20251208_024735_2_litres_glass_jars__400.jpeg",
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-08T02:47:35.015459"
+  },
+  {
+    "id": "3",
+    "name": "8 Litres Purple Lid Glass Jar",
+    "category": "glasses",
+    "price": 2500.0,
+    "description": "Purple Lid Jar",
+    "image": "uploads/20251208_175136_8_litres_purple_lid_glass_jar__2500_2.jpeg",
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-08T17:41:11.068153",
+    "images": [
+      "uploads/20251208_175136_8_litres_purple_lid_glass_jar__2500_2.jpeg",
+      "uploads/20251208_175718_8_litres_purple_lid_glass_jar__2500_1.jpeg",
+      "uploads/20251208_175718_8_litres_purple_lid_glass_jar__2500_3.jpeg",
+      "uploads/20251208_175719_8_litres_purple_lid_glass_jar__2500_4.jpeg",
+      "uploads/20251208_175719_8_litres_purple_lid_glass_jar__2500.jpeg"
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Squeeze Bottles",
+    "category": "plastics",
+    "price": 150.0,
+    "description": "Bottle",
+    "image": "uploads/20251208_182732_WhatsApp_Image_2025-12-06_at_23.12.59.jpeg",
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-08T18:27:32.398167",
+    "images": [
+      "uploads/20251208_182732_WhatsApp_Image_2025-12-06_at_23.12.59.jpeg"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Kraft Bags",
+    "category": "herbs-spices",
+    "price": 14.0,
+    "description": "Kraft Bags for Storage",
+    "image": "uploads/20251208_184747_Kraft_bags__14.jpeg",
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-08T18:47:47.784081",
+    "images": [
+      "uploads/20251208_184747_Kraft_bags__14.jpeg"
+    ]
+  }
+]
