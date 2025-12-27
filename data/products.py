@@ -58,10 +58,6 @@ def get_featured_products():
     all_products = get_all_products()
     return all_products[4:8] if len(all_products) >= 8 else all_products[4:]
 
-# Backwards compatibility
-best_sellers = get_best_sellers()
-featured_products = get_featured_products()
-
 def get_products_by_category(category: str) -> List[Product]:
     """Get products by category (case-insensitive) - always fresh"""
     all_products = load_json_products()

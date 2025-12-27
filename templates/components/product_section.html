@@ -12,10 +12,12 @@
                 <div class="relative overflow-hidden">
                     <!-- Image Carousel -->
                     <div class="carousel-container relative h-48" data-product-id="{{ product.id }}">
-                        {% if product.images and product.images|length > 0 %}
+                        {% if product.images is defined and product.images and product.images|length > 0 %}
                             {% set images = product.images %}
-                        {% else %}
+                        {% elif product.image %}
                             {% set images = [product.image] %}
+                        {% else %}
+                            {% set images = ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center'] %}
                         {% endif %}
                         
                         {% for img in images %}

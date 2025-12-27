@@ -71,5 +71,43 @@
     "images": [
       "uploads/20251208_184747_Kraft_bags__14.jpeg"
     ]
+  },
+  {
+    "id": "6",
+    "name": "Cups",
+    "category": "cosmetics",
+    "price": 150.0,
+    "description": "Cups",
+    "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center",
+    "images": [
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center",
+      "uploads/20251227_233551_028904_000_Baby_on_board_white_1.jpeg",
+      "uploads/20251227_233551_078224_001_datox_logo_001.png",
+      "uploads/20251227_233551_105442_002_delivery_card_datox_copy_001.png",
+      "uploads/20251227_233551_120508_003_Dispossable_cups_Pricelist.jpg"
+    ],
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-27T23:34:23.184881"
+  },
+  {
+    "id": "7",
+    "name": "Disposable Cups",
+    "category": "capsules",
+    "price": 325.0,
+    "description": "Testing",
+    "image": "uploads/20251227_234031_348602_000_Baby_on_board_white_1.jpeg",
+    "images": [
+      "uploads/20251227_234031_348602_000_Baby_on_board_white_1.jpeg",
+      "uploads/20251227_234031_357656_001_datox_logo_001.png",
+      "uploads/20251227_234031_379036_002_delivery_card_datox_copy_001.png",
+      "uploads/20251227_234031_382490_003_Dispossable_cups_Pricelist.jpg",
+      "uploads/20251227_234031_390699_004_Price_List_Chart.jpg"
+    ],
+    "in_stock": true,
+    "sizes": [],
+    "colors": [],
+    "created_at": "2025-12-27T23:40:31.427092"
   }
 ]

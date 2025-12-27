@@ -21,42 +21,42 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                                <input type="text" name="first_name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" id="checkout-first-name" name="first_name" required autocomplete="given-name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                                <input type="text" name="last_name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" id="checkout-last-name" name="last_name" required autocomplete="family-name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                         </div>
                         
                         <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            <label for="checkout-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="checkout-email" name="email" required autocomplete="email" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                         </div>
                         
                         <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                            <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            <label for="checkout-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="checkout-phone" name="phone" required autocomplete="tel" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                         </div>
                         
                         <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
-                            <input type="text" name="address" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            <label for="checkout-address" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                            <input type="text" id="checkout-address" name="address" required autocomplete="street-address" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                <input type="text" name="city" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" id="checkout-city" name="city" required autocomplete="address-level2" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
-                                <input type="text" name="state" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                <input type="text" id="checkout-state" name="state" required autocomplete="address-level1" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
-                                <input type="text" name="zip_code" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                <input type="text" id="checkout-zip" name="zip_code" required autocomplete="postal-code" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                         </div>
                         </div>
@@ -68,24 +68,24 @@
                             <h2 class="text-xl font-medium text-gray-900 mb-6">Payment Information</h2>
                         
                         <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
-                            <input type="text" name="card_number" placeholder="1234 5678 9012 3456" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            <label for="checkout-card-number" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                            <input type="text" id="checkout-card-number" name="card_number" placeholder="1234 5678 9012 3456" required autocomplete="cc-number" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-                                <input type="text" name="expiry" placeholder="MM/YY" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-expiry" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                                <input type="text" id="checkout-expiry" name="expiry" placeholder="MM/YY" required autocomplete="cc-exp" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                                <input type="text" name="cvv" placeholder="123" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                                <label for="checkout-cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                                <input type="text" id="checkout-cvv" name="cvv" placeholder="123" required autocomplete="cc-csc" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                             </div>
                         </div>
                         
                         <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
-                            <input type="text" name="card_name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            <label for="checkout-card-name" class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
+                            <input type="text" id="checkout-card-name" name="card_name" required autocomplete="cc-name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                         </div>
                     </div>
                     
@@ -93,7 +93,8 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6">
                             <h2 class="text-xl font-medium text-gray-900 mb-4">Order Notes (Optional)</h2>
-                            <textarea name="notes" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all resize-none" placeholder="Special instructions for your order..."></textarea>
+                            <label for="checkout-notes" class="sr-only">Order Notes</label>
+                            <textarea id="checkout-notes" name="notes" rows="3" autocomplete="off" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all resize-none" placeholder="Special instructions for your order..."></textarea>
                         </div>
                     </div>
                 </form>

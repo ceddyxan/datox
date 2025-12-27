@@ -15,16 +15,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Product Name -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
-                        <input type="text" name="name" required
+                        <label for="product-name" class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
+                        <input type="text" id="product-name" name="name" required autocomplete="off"
                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
                                placeholder="Enter product name">
                     </div>
                     
                     <!-- Category -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-                        <select name="category" required
+                        <label for="product-category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select id="product-category" name="category" required autocomplete="off"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">
                             <option value="">Select category</option>
                             <option value="glasses">Glasses</option>
@@ -38,8 +38,8 @@
                     
                     <!-- Price -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Price (Kshs.) *</label>
-                        <input type="number" name="price" required step="0.01" min="0"
+                        <label for="product-price" class="block text-sm font-medium text-gray-700 mb-2">Price (Kshs.) *</label>
+                        <input type="number" id="product-price" name="price" required step="0.01" min="0" autocomplete="off"
                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
                                placeholder="0.00">
                         <p class="text-xs text-gray-500 mt-1">Enter price in Kenyan Shillings</p>
@@ -47,30 +47,32 @@
                     
                     <!-- Stock Status -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Stock Status</label>
-                        <div class="flex items-center space-x-4 mt-3">
-                            <label class="flex items-center">
-                                <input type="radio" name="in_stock" value="true" checked class="mr-2 text-amber-600">
-                                <span class="text-gray-700">In Stock</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="radio" name="in_stock" value="false" class="mr-2 text-amber-600">
-                                <span class="text-gray-700">Out of Stock</span>
-                            </label>
-                        </div>
+                        <fieldset>
+                            <legend class="block text-sm font-medium text-gray-700 mb-2">Stock Status</legend>
+                            <div class="flex items-center space-x-4 mt-3">
+                                <label class="flex items-center">
+                                    <input type="radio" id="in-stock-true" name="in_stock" value="true" checked class="mr-2 text-amber-600">
+                                    <span class="text-gray-700">In Stock</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" id="in-stock-false" name="in_stock" value="false" class="mr-2 text-amber-600">
+                                    <span class="text-gray-700">Out of Stock</span>
+                                </label>
+                            </div>
+                        </fieldset>
                     </div>
                     
                     <!-- Description -->
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
-                        <textarea name="description" required rows="4"
+                        <label for="product-description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                        <textarea id="product-description" name="description" required rows="4" autocomplete="off"
                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
                                   placeholder="Enter product description"></textarea>
                     </div>
                     
                     <!-- Product Images -->
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Images *</label>
+                        <label for="images-upload" class="block text-sm font-medium text-gray-700 mb-2">Product Images *</label>
                         <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-amber-500 transition-colors">
                             <input type="file" name="images" accept="image/*" multiple class="hidden" id="images-upload">
                             <label for="images-upload" class="cursor-pointer">
@@ -87,12 +89,12 @@
                     
                     <!-- Available Sizes -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Available Sizes</label>
-                        <div class="space-y-2">
+                        <label for="product-sizes" class="block text-sm font-medium text-gray-700 mb-2">Available Sizes</label>
+                        <div class="space-y-2" id="product-sizes">
                             <div class="flex items-center space-x-2">
-                                <input type="text" name="sizes" placeholder="e.g., Small, Medium, Large"
+                                <input type="text" id="size-0" name="sizes" placeholder="e.g., Small, Medium, Large" autocomplete="off"
                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                <button type="button" onclick="addSizeField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                <button type="button" onclick="addSizeField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" aria-label="Add another size">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
@@ -104,12 +106,12 @@
                     
                     <!-- Available Colors -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Available Colors</label>
-                        <div class="space-y-2">
+                        <label for="product-colors" class="block text-sm font-medium text-gray-700 mb-2">Available Colors</label>
+                        <div class="space-y-2" id="product-colors">
                             <div class="flex items-center space-x-2">
-                                <input type="text" name="colors" placeholder="e.g., Red, Blue, Green"
+                                <input type="text" id="color-0" name="colors" placeholder="e.g., Red, Blue, Green" autocomplete="off"
                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                <button type="button" onclick="addColorField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                <button type="button" onclick="addColorField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" aria-label="Add another color">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
@@ -169,14 +171,16 @@ document.getElementById('images-upload').addEventListener('change', function(e) 
 });
 
 // Add size field
+let sizeCounter = 1;
 function addSizeField() {
     const container = document.getElementById('sizes-container');
     const div = document.createElement('div');
     div.className = 'flex items-center space-x-2 mt-2';
+    const sizeId = `size-${sizeCounter++}`;
     div.innerHTML = `
-        <input type="text" name="sizes" placeholder="Size"
+        <input type="text" id="${sizeId}" name="sizes" placeholder="Size" autocomplete="off"
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200" aria-label="Remove size">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -186,14 +190,16 @@ function addSizeField() {
 }
 
 // Add color field
+let colorCounter = 1;
 function addColorField() {
     const container = document.getElementById('colors-container');
     const div = document.createElement('div');
     div.className = 'flex items-center space-x-2 mt-2';
+    const colorId = `color-${colorCounter++}`;
     div.innerHTML = `
-        <input type="text" name="colors" placeholder="Color"
+        <input type="text" id="${colorId}" name="colors" placeholder="Color" autocomplete="off"
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200" aria-label="Remove color">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>

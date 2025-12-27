@@ -6,7 +6,7 @@ from datetime import datetime
 from decimal import Decimal, ROUND_HALF_UP
 
 from data.products import (
-    best_sellers, featured_products, get_products_by_category, get_product_by_id
+    get_best_sellers, get_featured_products, get_products_by_category, get_product_by_id
 )
 from utils.cart import CartManager
 
@@ -42,25 +42,75 @@ def allowed_file(filename):
     """Check if file extension is allowed"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def handle_image_upload(image_file):
+def handle_image_upload(image_file, counter=None):
     """Handle image file upload and return URL"""
-    if not image_file or not allowed_file(image_file.filename):
-        return 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center'
+    # Validate file object
+    if not image_file:
+        print("DEBUG handle_image_upload: No file object provided")
+        return None
     
-    # Create upload directory if it doesn't exist
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):
-        os.makedirs(app.config['UPLOAD_FOLDER'])
+    # Check filename
+    if not hasattr(image_file, 'filename') or not image_file.filename:
+        print("DEBUG handle_image_upload: File has no filename")
+        return None
     
-    # Generate secure filename with timestamp
-    filename = secure_filename(image_file.filename)
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f"{timestamp}_{filename}"
+    filename = image_file.filename.strip()
+    if not filename:
+        print("DEBUG handle_image_upload: Filename is empty")
+        return None
     
-    # Save file
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    image_file.save(filepath)
+    # Check file extension
+    if not allowed_file(filename):
+        print(f"DEBUG handle_image_upload: File extension not allowed: {filename}")
+        return None
     
-    return f'uploads/{filename}'
+    try:
+        # Create upload directory if it doesn't exist
+        if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            os.makedirs(app.config['UPLOAD_FOLDER'])
+        
+        # Generate secure filename with timestamp, microsecond, and counter for uniqueness
+        base_filename = secure_filename(filename)
+        # Get file extension
+        file_ext = os.path.splitext(base_filename)[1] or '.jpg'
+        base_name = os.path.splitext(base_filename)[0] or 'image'
+        
+        # Use microsecond precision for uniqueness, plus counter to ensure no collisions
+        now = datetime.now()
+        timestamp = now.strftime('%Y%m%d_%H%M%S')
+        microseconds = now.microsecond
+        
+        # Create unique filename - counter ensures uniqueness even if microseconds collide
+        if counter is not None:
+            filename = f"{timestamp}_{microseconds:06d}_{counter:03d}_{base_name}{file_ext}"
+        else:
+            # Use a random component if no counter provided
+            import random
+            random_suffix = random.randint(1000, 9999)
+            filename = f"{timestamp}_{microseconds:06d}_{random_suffix}_{base_name}{file_ext}"
+        
+        # Ensure filename doesn't already exist (add increment if needed)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        increment = 0
+        while os.path.exists(filepath):
+            increment += 1
+            name_part = f"{timestamp}_{microseconds:06d}_{counter if counter is not None else random_suffix:03d}_{increment:03d}_{base_name}"
+            filename = f"{name_part}{file_ext}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        # Save file - ensure stream is at beginning
+        if hasattr(image_file, 'stream') and hasattr(image_file.stream, 'seek'):
+            image_file.stream.seek(0)
+        
+        image_file.save(filepath)
+        print(f"DEBUG handle_image_upload: Successfully saved {filename} to {filepath}")
+        
+        return f'uploads/{filename}'
+    except Exception as e:
+        print(f"DEBUG handle_image_upload: Exception saving file: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return None
 def load_products():
     """Load products from JSON file"""
     try:
@@ -80,8 +130,8 @@ def save_products(products):
 @app.route('/')
 def home():
     return render_template('home.html', 
-                         best_sellers=best_sellers, 
-                         featured_products=featured_products,
+                         best_sellers=get_best_sellers(), 
+                         featured_products=get_featured_products(),
                          get_products_by_category=get_products_by_category)
 
 @app.route('/products/<category>')
@@ -229,23 +279,58 @@ def add_product():
             # Handle multiple image uploads
             images = []
             
-            # Get all uploaded image files
+            # Get all uploaded image files - Flask's getlist returns all files with name='images'
             image_files = request.files.getlist('images')
+            print(f"DEBUG: Total files from getlist('images'): {len(image_files)}")
+            
+            # Process all files from the list
+            for idx, img_file in enumerate(image_files):
+                if img_file and hasattr(img_file, 'filename'):
+                    filename = img_file.filename
+                    if filename and filename.strip():
+                        print(f"DEBUG: Found file {idx}: {filename}")
+                        if allowed_file(filename):
+                            try:
+                                image_url = handle_image_upload(img_file, counter=idx)
+                                if image_url and not image_url.startswith('https://'):
+                                    images.append(image_url)
+                                    print(f"DEBUG: Successfully added image {idx}: {image_url}")
+                                else:
+                                    print(f"DEBUG: Image {idx} returned default URL, skipping")
+                            except Exception as e:
+                                print(f"DEBUG: Error uploading image {idx} ({filename}): {str(e)}")
+                                import traceback
+                                traceback.print_exc()
+                                flash(f'Error uploading {filename}: {str(e)}', 'error')
+                        else:
+                            print(f"DEBUG: File {idx} has invalid extension: {filename}")
+                    else:
+                        print(f"DEBUG: File {idx} has empty filename")
+                else:
+                    print(f"DEBUG: File {idx} is None or has no filename attribute")
             
             # Handle single image upload for backward compatibility
             single_image = request.files.get('image')
-            if single_image and single_image.filename:
-                image_files.append(single_image)
+            if single_image and single_image.filename and single_image.filename.strip():
+                if allowed_file(single_image.filename):
+                    try:
+                        image_url = handle_image_upload(single_image, counter=len(images))
+                        if image_url and not image_url.startswith('https://'):
+                            images.append(image_url)
+                            print(f"DEBUG: Successfully added single image: {image_url}")
+                    except Exception as e:
+                        print(f"DEBUG: Error uploading single image: {str(e)}")
+                        flash(f'Error uploading single image: {str(e)}', 'error')
             
-            # Process each image
-            for image_file in image_files:
-                if image_file and image_file.filename and allowed_file(image_file.filename):
-                    image_url = handle_image_upload(image_file)
-                    images.append(image_url)
+            print(f"DEBUG: Total images processed: {len(images)}")
             
             # If no images uploaded, use default
             if not images:
                 images = ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop&crop=center']
+            else:
+                # Ensure we have at least the primary image set
+                if not any(img for img in images if not img.startswith('https://')):
+                    flash('Warning: No valid images were uploaded. Using default image.', 'warning')
             
             # Get form data
             name = request.form.get('name')
@@ -258,9 +343,16 @@ def add_product():
             sizes = [s.strip() for s in request.form.getlist('sizes') if s.strip()]
             colors = [c.strip() for c in request.form.getlist('colors') if c.strip()]
             
+            # Load products first to ensure we have the latest data
+            products = load_products()
+            
+            # Generate unique ID based on existing product IDs
+            existing_ids = [int(p.get('id', 0)) for p in products if p.get('id', '').isdigit()]
+            new_id = str(max(existing_ids, default=0) + 1) if existing_ids else '1'
+            
             # Create new product
             product = {
-                'id': str(len(load_products()) + 1),
+                'id': new_id,
                 'name': name,
                 'category': category,
                 'price': price,
@@ -274,7 +366,6 @@ def add_product():
             }
             
             # Save product
-            products = load_products()
             products.append(product)
             save_products(products)
             
@@ -317,13 +408,14 @@ def edit_product(product_id):
             # Handle single image upload for backward compatibility
             single_image = request.files.get('image')
             if single_image and single_image.filename and allowed_file(single_image.filename):
-                image_url = handle_image_upload(single_image)
+                image_url = handle_image_upload(single_image, counter=0)
                 uploaded_images.append(image_url)
             
-            # Process multiple images
-            for image_file in image_files:
-                if image_file and allowed_file(image_file.filename):
-                    image_url = handle_image_upload(image_file)
+            # Process multiple images with counter to ensure uniqueness
+            start_counter = len(uploaded_images)  # Start counter after single image if any
+            for index, image_file in enumerate(image_files):
+                if image_file and image_file.filename and allowed_file(image_file.filename):
+                    image_url = handle_image_upload(image_file, counter=start_counter + index)
                     uploaded_images.append(image_url)
             
             # Handle removed images

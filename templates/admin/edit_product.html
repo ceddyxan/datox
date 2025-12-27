@@ -15,16 +15,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Product Name -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
-                        <input type="text" name="name" required
+                        <label for="edit-product-name" class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
+                        <input type="text" id="edit-product-name" name="name" required autocomplete="off"
                                value="{{ product.name }}"
                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">
                     </div>
                     
                     <!-- Category -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-                        <select name="category" required
+                        <label for="edit-product-category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select id="edit-product-category" name="category" required autocomplete="off"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">
                             <option value="">Select category</option>
                             <option value="glasses" {% if product.category == 'glasses' %}selected{% endif %}>Glasses</option>
@@ -38,8 +38,8 @@
                     
                     <!-- Price -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Price (Kshs.) *</label>
-                        <input type="number" name="price" required step="0.01" min="0"
+                        <label for="edit-product-price" class="block text-sm font-medium text-gray-700 mb-2">Price (Kshs.) *</label>
+                        <input type="number" id="edit-product-price" name="price" required step="0.01" min="0" autocomplete="off"
                                value="{{ product.price }}"
                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">
                         <p class="text-xs text-gray-500 mt-1">Enter price in Kenyan Shillings</p>
@@ -47,29 +47,31 @@
                     
                     <!-- Stock Status -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Stock Status</label>
-                        <div class="flex items-center space-x-4 mt-3">
-                            <label class="flex items-center">
-                                <input type="radio" name="in_stock" value="true" {% if product.in_stock %}checked{% endif %} class="mr-2 text-amber-600">
-                                <span class="text-gray-700">In Stock</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="radio" name="in_stock" value="false" {% if not product.in_stock %}checked{% endif %} class="mr-2 text-amber-600">
-                                <span class="text-gray-700">Out of Stock</span>
-                            </label>
-                        </div>
+                        <fieldset>
+                            <legend class="block text-sm font-medium text-gray-700 mb-2">Stock Status</legend>
+                            <div class="flex items-center space-x-4 mt-3">
+                                <label class="flex items-center">
+                                    <input type="radio" id="edit-in-stock-true" name="in_stock" value="true" {% if product.in_stock %}checked{% endif %} class="mr-2 text-amber-600">
+                                    <span class="text-gray-700">In Stock</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" id="edit-in-stock-false" name="in_stock" value="false" {% if not product.in_stock %}checked{% endif %} class="mr-2 text-amber-600">
+                                    <span class="text-gray-700">Out of Stock</span>
+                                </label>
+                            </div>
+                        </fieldset>
                     </div>
                     
                     <!-- Description -->
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
-                        <textarea name="description" required rows="4"
+                        <label for="edit-product-description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                        <textarea id="edit-product-description" name="description" required rows="4" autocomplete="off"
                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">{{ product.description }}</textarea>
                     </div>
                     
                     <!-- Multiple Product Images -->
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Images</label>
+                        <label for="images-upload" class="block text-sm font-medium text-gray-700 mb-2">Product Images</label>
                         
                         <!-- Current Images -->
                         {% if product.images %}
@@ -117,7 +119,7 @@
                         <!-- Single Image Upload (Backward Compatibility) -->
                         <div class="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center hover:border-amber-500 transition-colors">
                             <input type="file" name="image" accept="image/*" class="hidden" id="single-image-upload">
-                            <label for="single-image-upload" class="cursor-pointer">
+                            <label for="single-image-upload" class="cursor-pointer block">
                                 <p class="text-gray-600 mb-1">Or upload single image</p>
                                 <p class="text-xs text-gray-500">For backward compatibility</p>
                             </label>
@@ -133,13 +135,13 @@
                     
                     <!-- Available Sizes -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Available Sizes</label>
-                        <div class="space-y-2">
+                        <label for="edit-product-sizes" class="block text-sm font-medium text-gray-700 mb-2">Available Sizes</label>
+                        <div class="space-y-2" id="edit-product-sizes">
                             {% for size in product.sizes %}
                             <div class="flex items-center space-x-2">
-                                <input type="text" name="sizes" value="{{ size }}"
+                                <input type="text" id="edit-size-{{ loop.index0 }}" name="sizes" value="{{ size }}" autocomplete="off"
                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+                                <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200" aria-label="Remove size">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
@@ -147,9 +149,9 @@
                             </div>
                             {% endfor %}
                             <div class="flex items-center space-x-2">
-                                <input type="text" name="sizes" placeholder="Add new size"
+                                <input type="text" id="edit-size-new" name="sizes" placeholder="Add new size" autocomplete="off"
                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                <button type="button" onclick="addSizeField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                <button type="button" onclick="addSizeField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" aria-label="Add another size">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
@@ -161,13 +163,13 @@
                     
                     <!-- Available Colors -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Available Colors</label>
-                        <div class="space-y-2">
+                        <label for="edit-product-colors" class="block text-sm font-medium text-gray-700 mb-2">Available Colors</label>
+                        <div class="space-y-2" id="edit-product-colors">
                             {% for color in product.colors %}
                             <div class="flex items-center space-x-2">
-                                <input type="text" name="colors" value="{{ color }}"
+                                <input type="text" id="edit-color-{{ loop.index0 }}" name="colors" value="{{ color }}" autocomplete="off"
                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+                                <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200" aria-label="Remove color">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
@@ -175,9 +177,9 @@
                             </div>
                             {% endfor %}
                             <div class="flex items-center space-x-2">
-                                <input type="text" name="colors" placeholder="Add new color"
+                                <input type="text" id="edit-color-new" name="colors" placeholder="Add new color" autocomplete="off"
                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-                                <button type="button" onclick="addColorField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                <button type="button" onclick="addColorField()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" aria-label="Add another color">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
@@ -276,14 +278,16 @@ document.getElementById('single-image-upload').addEventListener('change', functi
 });
 
 // Add size field
+let editSizeCounter = {% if product.sizes %}{{ product.sizes|length }}{% else %}0{% endif %};
 function addSizeField() {
     const container = document.getElementById('sizes-container');
     const div = document.createElement('div');
     div.className = 'flex items-center space-x-2 mt-2';
+    const sizeId = `edit-size-${editSizeCounter++}`;
     div.innerHTML = `
-        <input type="text" name="sizes" placeholder="Size"
+        <input type="text" id="${sizeId}" name="sizes" placeholder="Size" autocomplete="off"
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200" aria-label="Remove size">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -293,14 +297,16 @@ function addSizeField() {
 }
 
 // Add color field
+let editColorCounter = {% if product.colors %}{{ product.colors|length }}{% else %}0{% endif %};
 function addColorField() {
     const container = document.getElementById('colors-container');
     const div = document.createElement('div');
     div.className = 'flex items-center space-x-2 mt-2';
+    const colorId = `edit-color-${editColorCounter++}`;
     div.innerHTML = `
-        <input type="text" name="colors" placeholder="Color"
+        <input type="text" id="${colorId}" name="colors" placeholder="Color" autocomplete="off"
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
-        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200" aria-label="Remove color">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
