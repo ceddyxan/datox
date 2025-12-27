@@ -18,7 +18,12 @@
                 <div class="p-4">
                     <!-- Product Image -->
                     <div class="w-full h-32 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center overflow-hidden mb-4">
-                        <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+                        {% set _img = (item.image or '').strip() %}
+                        {% if _img and '://' in _img %}
+                        <img src="{{ _img }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <img src="{{ url_for('static', filename=_img) }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+                        {% endif %}
                     </div>
                     
                     <!-- Product Details -->

@@ -14,51 +14,34 @@
             <!-- Checkout Form -->
             <div class="lg:col-span-2">
                 <form id="checkout-form" class="space-y-6">
-                    <!-- Shipping Information -->
+                    <!-- Shipping Information (minimal) -->
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6">
-                            <h2 class="text-xl font-medium text-gray-900 mb-6">Shipping Information</h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="checkout-first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                                <input type="text" id="checkout-first-name" name="first_name" required autocomplete="given-name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            <h2 class="text-xl font-medium text-gray-900 mb-4">Shipping Information</h2>
+
+                            <div class="space-y-3">
+                                <div>
+                                    <label for="checkout-full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                    <input type="text" id="checkout-full-name" name="full_name" required autocomplete="name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="First and last name">
+                                </div>
+
+                                <div>
+                                    <label for="checkout-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address (optional)</label>
+                                    <input type="email" id="checkout-email" name="email" autocomplete="email" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="you@example.com">
+                                </div>
+
+                                <div>
+                                    <label for="checkout-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                    <input type="tel" id="checkout-phone" name="phone" required autocomplete="tel" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="07XX XXX XXX">
+                                </div>
+
+                                <div>
+                                    <label for="checkout-address" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                                    <input type="text" id="checkout-address" name="address" required autocomplete="street-address" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="123 Main St">
+                                </div>
+
+                                <!-- Removed hidden city/state/zip fields (server accepts minimal address now) -->
                             </div>
-                            <div>
-                                <label for="checkout-last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                                <input type="text" id="checkout-last-name" name="last_name" required autocomplete="family-name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <label for="checkout-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" id="checkout-email" name="email" required autocomplete="email" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                        </div>
-                        
-                        <div class="mt-4">
-                            <label for="checkout-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                            <input type="tel" id="checkout-phone" name="phone" required autocomplete="tel" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                        </div>
-                        
-                        <div class="mt-4">
-                            <label for="checkout-address" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
-                            <input type="text" id="checkout-address" name="address" required autocomplete="street-address" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                            <div>
-                                <label for="checkout-city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                <input type="text" id="checkout-city" name="city" required autocomplete="address-level2" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                            </div>
-                            <div>
-                                <label for="checkout-state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
-                                <input type="text" id="checkout-state" name="state" required autocomplete="address-level1" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                            </div>
-                            <div>
-                                <label for="checkout-zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
-                                <input type="text" id="checkout-zip" name="zip_code" required autocomplete="postal-code" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                            </div>
-                        </div>
                         </div>
                     </div>
                     
@@ -66,26 +49,44 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6">
                             <h2 class="text-xl font-medium text-gray-900 mb-6">Payment Information</h2>
-                        
-                        <div class="mt-4">
-                            <label for="checkout-card-number" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
-                            <input type="text" id="checkout-card-number" name="card_number" placeholder="1234 5678 9012 3456" required autocomplete="cc-number" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                            <div>
-                                <label for="checkout-expiry" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-                                <input type="text" id="checkout-expiry" name="expiry" placeholder="MM/YY" required autocomplete="cc-exp" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                            
+                            <!-- M-Pesa Payment -->
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-green-600 rounded-full p-3 mr-4">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900">M-Pesa Payment</h3>
+                                        <p class="text-sm text-gray-600">Pay securely via M-Pesa</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <label for="checkout-mpesa-phone" class="block text-sm font-medium text-gray-700 mb-1">M-Pesa Phone Number *</label>
+                                    <input type="tel" id="checkout-mpesa-phone" name="mpesa_phone" placeholder="+254 7XX XXX XXX or 07XX XXX XXX" required autocomplete="tel" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" inputmode="numeric">
+                                    <p class="text-xs text-gray-500 mt-1">Enter your M-Pesa registered phone number. Accepts local (07...) or international (+2547... / 2547...)</p>
+                                </div>
+                                
+                                <div class="mt-4 p-4 bg-white rounded-lg border border-green-200">
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <div class="text-sm text-gray-700">
+                                            <p class="font-medium mb-1">How it works:</p>
+                                            <ol class="list-decimal list-inside space-y-1 text-gray-600">
+                                                <li>Enter your M-Pesa registered phone number</li>
+                                                <li>You will receive an M-Pesa prompt on your phone</li>
+                                                <li>Enter your M-Pesa PIN to complete the payment</li>
+                                                <li>You will receive a confirmation SMS</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label for="checkout-cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                                <input type="text" id="checkout-cvv" name="cvv" placeholder="123" required autocomplete="cc-csc" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <label for="checkout-card-name" class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
-                            <input type="text" id="checkout-card-name" name="card_name" required autocomplete="cc-name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
                         </div>
                     </div>
                     
@@ -110,7 +111,12 @@
                     <div class="space-y-3 mb-6 max-h-64 overflow-y-auto">
                         {% for item in cart_items %}
                         <div class="flex items-center space-x-3">
-                            <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" class="w-12 h-12 object-cover rounded">
+                            {% set _img = (item.image or '').strip() %}
+                            {% if _img and '://' in _img %}
+                                <img src="{{ _img }}" alt="{{ item.name }}" class="w-12 h-12 object-cover rounded">
+                            {% else %}
+                                <img src="{{ url_for('static', filename=_img) }}" alt="{{ item.name }}" class="w-12 h-12 object-cover rounded">
+                            {% endif %}
                             <div class="flex-1">
                                 <h4 class="text-sm font-medium text-gray-900">{{ item.name }}</h4>
                                 <p class="text-xs text-gray-600">Qty: {{ item.quantity }}</p>
@@ -134,11 +140,11 @@
                             <span>Kshs. {{ (subtotal * 0.16) | currency_format }}</span>
                         </div>
                         <div class="border-t pt-3">
-                            <div class="flex justify-between text-lg font-semibold text-gray-900">
-                                <span>Total</span>
-                                <span>Kshs. {{ (subtotal + 250 + (subtotal * 0.16)) | currency_format }}</span>
+                                <div class="flex justify-between text-lg font-semibold text-gray-900">
+                                    <span>Total</span>
+                                    <span id="order-total-display" data-total="{{ (subtotal + 250 + (subtotal * 0.16)) }}">Kshs. {{ (subtotal + 250 + (subtotal * 0.16)) | currency_format }}</span>
+                                </div>
                             </div>
-                        </div>
                     </div>
                     
                     <button type="submit" form="checkout-form" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-center py-4 px-6 rounded-2xl hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-6">
@@ -157,95 +163,201 @@
 
 {% block scripts %}
 <script>
+// Expose cart items to JS for message building
+const CART_ITEMS = {{ cart_items | tojson | safe }};
+
 // Form validation
 document.getElementById('checkout-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    
+
     // Get form data
     const formData = new FormData(this);
-    
-    // Basic validation
-    const cardNumber = formData.get('card_number').replace(/\s/g, '');
-    const expiry = formData.get('expiry');
-    const cvv = formData.get('cvv');
-    
-    // Validate card number (basic check for 16 digits)
-    if (!/^\d{16}$/.test(cardNumber)) {
-        showNotification('Please enter a valid 16-digit card number', 'error');
+
+    // Normalize/validate main phone (same as M-Pesa rules)
+    let phoneRaw = (formData.get('phone') || '').toString();
+    let phoneDigits = phoneRaw.replace(/\D/g, '');
+    let normalizedPhone = null;
+    if (/^07\d{8}$/.test(phoneDigits)) {
+        normalizedPhone = phoneDigits;
+    } else if (/^7\d{8}$/.test(phoneDigits)) {
+        normalizedPhone = '0' + phoneDigits;
+    } else if (/^2547\d{8}$/.test(phoneDigits)) {
+        normalizedPhone = '0' + phoneDigits.slice(3);
+    } else {
+        showNotification('Please enter a valid phone number (e.g. 07XXXXXXXX or +2547XXXXXXXX)', 'error');
         return;
     }
-    
-    // Validate expiry date (MM/YY format)
-    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
-        showNotification('Please enter expiry date in MM/YY format', 'error');
-        return;
-    }
-    
-    // Validate CVV (3 digits)
-    if (!/^\d{3}$/.test(cvv)) {
-        showNotification('Please enter a valid 3-digit CVV', 'error');
-        return;
-    }
+
+        // Validate M-Pesa phone number (accept local and international formats)
+        let mpesaRaw = (formData.get('mpesa_phone') || '').toString();
+        // Remove all non-digit characters
+        let mpesaDigits = mpesaRaw.replace(/\D/g, '');
+        let normalizedMpesa = null;
+
+        // Accept formats:
+        // - Local: 07XXXXXXXX (10 digits)
+        // - Shorthand: 7XXXXXXXX (9 digits) => normalize to 07XXXXXXXX
+        // - International: 2547XXXXXXXX (12 digits) or +2547XXXXXXXX => normalize to 07XXXXXXXX
+        if (/^07\d{8}$/.test(mpesaDigits)) {
+            normalizedMpesa = mpesaDigits;
+        } else if (/^7\d{8}$/.test(mpesaDigits)) {
+            normalizedMpesa = '0' + mpesaDigits;
+        } else if (/^2547\d{8}$/.test(mpesaDigits)) {
+            normalizedMpesa = '0' + mpesaDigits.slice(3);
+        } else {
+            showNotification('Please enter a valid M-Pesa phone number (e.g. 07XXXXXXXX or +2547XXXXXXXX)', 'error');
+            return;
+        }
     
     // Show processing message
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Processing...';
-    submitBtn.disabled = true;
-    
-    // Simulate payment processing
-    setTimeout(() => {
-        // Clear cart
-        fetch('/clear_cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showNotification('Order placed successfully! Thank you for your purchase.', 'success');
-                // Redirect to home after 2 seconds
-                setTimeout(() => {
-                    window.location.href = '{{ url_for("home") }}';
-                }, 2000);
-            } else {
-                showNotification('Error processing order', 'error');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Error processing order', 'error');
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        });
-    }, 2000);
-});
-
-// Format card number input
-document.querySelector('input[name="card_number"]').addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\s/g, '');
-    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-    e.target.value = formattedValue;
-});
-
-// Format expiry date input
-document.querySelector('input[name="expiry"]').addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length >= 2) {
-        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+    let submitBtn = this.querySelector('button[type="submit"]');
+    // The submit button is placed outside the form and uses `form="checkout-form"` —
+    // fall back to a global selector if not found inside the form.
+    if (!submitBtn) {
+        submitBtn = document.querySelector('button[form="checkout-form"][type="submit"]') || document.querySelector('button[type="submit"]');
     }
-    e.target.value = value;
+    let originalText = '';
+    if (submitBtn) {
+        originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Processing M-Pesa Payment...';
+        submitBtn.disabled = true;
+    } else {
+        console.warn('Submit button not found to update state');
+    }
+    
+    // Simulate M-Pesa payment processing
+    showNotification('Initiating M-Pesa payment...', 'success');
+    
+    setTimeout(() => {
+        // In a real implementation, this would call your M-Pesa API
+        // For now, we'll simulate the payment process
+        showNotification('M-Pesa prompt sent to your phone. Please enter your PIN.', 'success');
+        
+        setTimeout(() => {
+            // After successful M-Pesa confirmation, send order to server
+            const orderPayload = {
+                full_name: (formData.get('full_name') || '').toString(),
+                email: (formData.get('email') || '').toString(),
+                phone: normalizedPhone,
+                address: (formData.get('address') || '').toString(),
+                notes: (formData.get('notes') || '').toString(),
+                mpesa_phone: normalizedMpesa
+            };
+
+            fetch('/place_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderPayload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Payment successful! Order placed. Thank you for your purchase.', 'success');
+
+                    // Open WhatsApp Click-to-Chat with prefilled order message (user must press Send)
+                    try {
+                        const totalEl = document.getElementById('order-total-display');
+                        const totalVal = totalEl && totalEl.dataset ? totalEl.dataset.total : '';
+                        const waNumber = '254711244082'; // 0711244082 in international format without +
+                        const msgLines = [
+                            'New order from website',
+                            `Name: ${orderPayload.full_name}`,
+                            `Phone: ${orderPayload.phone}`,
+                            `Address: ${orderPayload.address}`,
+                            '',
+                            'Items:'
+                        ];
+
+                        // Add each cart item line: Name xQty - line total
+                        if (Array.isArray(CART_ITEMS) && CART_ITEMS.length) {
+                            CART_ITEMS.forEach(item => {
+                                const qty = item.quantity || 1;
+                                const price = Number(item.price || 0);
+                                const lineTotal = (price * qty).toFixed(2);
+                                msgLines.push(`${item.name} x${qty} - Kshs ${lineTotal}`);
+                            });
+                        }
+
+                        msgLines.push('');
+                        msgLines.push(`Total: Kshs ${totalVal}`);
+                        const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(msgLines.join('\n'))}`;
+                        // Open in a new tab/window so user can confirm/send in WhatsApp
+                        window.open(waUrl, '_blank');
+                    } catch (err) {
+                        console.error('Error opening WhatsApp:', err);
+                    }
+
+                    // Redirect to home after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = '{{ url_for("home") }}';
+                    }, 2000);
+                } else {
+                    showNotification('Error processing order', 'error');
+                    if (submitBtn) {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error processing order', 'error');
+                if (submitBtn) {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }, 3000); // Simulate waiting for M-Pesa confirmation
+    }, 1000);
 });
 
-// Only allow numbers for CVV
-document.querySelector('input[name="cvv"]').addEventListener('input', function(e) {
-    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
-});
+// Format M-Pesa phone number input (supports local and international)
+const mpesaPhoneInput = document.querySelector('input[name="mpesa_phone"]');
+if (mpesaPhoneInput) {
+    mpesaPhoneInput.addEventListener('input', function(e) {
+        let raw = e.target.value.replace(/\D/g, '');
 
+        // If users type country code (254...), format as: 254 7XX XXX XXX
+        if (raw.startsWith('254')) {
+            raw = raw.slice(0, 12); // limit to 12 digits (2547XXXXXXXX)
+            if (raw.length > 3) raw = raw.slice(0, 3) + ' ' + raw.slice(3);
+            if (raw.length > 7) raw = raw.slice(0, 7) + ' ' + raw.slice(7);
+            if (raw.length > 11) raw = raw.slice(0, 11) + ' ' + raw.slice(11);
+        } else {
+            // Local format (07XXXXXXXX or 7XXXXXXXX)
+            raw = raw.slice(0, 10);
+            if (raw.length > 3) raw = raw.slice(0, 4) + ' ' + raw.slice(4);
+            if (raw.length > 7) raw = raw.slice(0, 7) + ' ' + raw.slice(7);
+        }
+
+        e.target.value = raw;
+    });
+
+    // Remove strict keydown blocking so international prefixes (+254) are allowed
+}
+
+// Format main phone input similarly
+const mainPhoneInput = document.querySelector('input[name="phone"]');
+if (mainPhoneInput) {
+    mainPhoneInput.addEventListener('input', function(e) {
+        let raw = e.target.value.replace(/\D/g, '');
+
+        if (raw.startsWith('254')) {
+            raw = raw.slice(0, 12);
+            if (raw.length > 3) raw = raw.slice(0, 3) + ' ' + raw.slice(3);
+            if (raw.length > 7) raw = raw.slice(0, 7) + ' ' + raw.slice(7);
+            if (raw.length > 11) raw = raw.slice(0, 11) + ' ' + raw.slice(11);
+        } else {
+            raw = raw.slice(0, 10);
+            if (raw.length > 3) raw = raw.slice(0, 4) + ' ' + raw.slice(4);
+            if (raw.length > 7) raw = raw.slice(0, 7) + ' ' + raw.slice(7);
+        }
+
+        e.target.value = raw;
+    });
+}
 function showNotification(message, type) {
     const notification = document.createElement('div');
     notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all transform translate-x-full ${

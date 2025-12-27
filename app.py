@@ -42,6 +42,30 @@ def allowed_file(filename):
     """Check if file extension is allowed"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+def normalize_phone_number(raw):
+    """Normalize Kenyan phone numbers to local 10-digit format (07XXXXXXXX).
+
+    Accepts formats: 07XXXXXXXX, 7XXXXXXXX, 2547XXXXXXXX, +2547XXXXXXXX
+    Returns normalized string like '07XXXXXXXX' or raises ValueError.
+    """
+    if not raw:
+        raise ValueError('Empty phone number')
+    digits = ''.join(ch for ch in str(raw) if ch.isdigit())
+
+    # Local
+    import re
+    if re.match(r'^07\d{8}$', digits):
+        return digits
+    # shorthand 7XXXXXXXX
+    if re.match(r'^7\d{8}$', digits):
+        return '0' + digits
+    # international 2547XXXXXXXX
+    if re.match(r'^2547\d{8}$', digits):
+        return '0' + digits[3:]
+    # If plus sign was included, we've stripped it so same rules apply
+    raise ValueError('Invalid Kenyan phone number')
+
 def handle_image_upload(image_file, counter=None):
     """Handle image file upload and return URL"""
     # Validate file object
@@ -219,6 +243,73 @@ def clear_cart():
         'cart_count': 0,
         'cart_total': 0
     })
+
+
+@app.route('/place_order', methods=['POST'])
+def place_order():
+    """Accept order data, normalize phones, save a simple order record, and clear the cart."""
+    try:
+        data = request.get_json() or {}
+        full_name = (data.get('full_name') or '').strip()
+        email = (data.get('email') or '').strip()
+        phone_raw = (data.get('phone') or '').strip()
+        mpesa_raw = (data.get('mpesa_phone') or '').strip()
+        address = (data.get('address') or '').strip()
+        notes = (data.get('notes') or '').strip()
+
+        # Normalize phone(s)
+        try:
+            phone = normalize_phone_number(phone_raw)
+        except ValueError:
+            return jsonify({'success': False, 'error': 'Invalid phone number'}), 400
+
+        mpesa_phone = ''
+        if mpesa_raw:
+            try:
+                mpesa_phone = normalize_phone_number(mpesa_raw)
+            except ValueError:
+                return jsonify({'success': False, 'error': 'Invalid M-Pesa phone number'}), 400
+
+        # Build order object
+        order = {
+            'id': datetime.now().strftime('%Y%m%d%H%M%S'),
+            'full_name': full_name,
+            'email': email,
+            'phone': phone,
+            'mpesa_phone': mpesa_phone,
+            'address': address,
+            'notes': notes,
+            'items': cart_manager.get_cart(),
+            'total': cart_manager.get_total_price(),
+            'created_at': datetime.now().isoformat()
+        }
+
+        # Save to orders.json (append)
+        orders_file = 'orders.json'
+        try:
+            if os.path.exists(orders_file):
+                with open(orders_file, 'r', encoding='utf-8') as f:
+                    existing = json.load(f) or []
+            else:
+                existing = []
+        except Exception:
+            existing = []
+
+        existing.append(order)
+        try:
+            with open(orders_file, 'w', encoding='utf-8') as f:
+                json.dump(existing, f, indent=2)
+        except Exception as e:
+            print('Error saving order:', e)
+
+        # Clear the server-side cart
+        cart_manager.clear_cart()
+
+        return jsonify({'success': True})
+
+    except Exception as e:
+        print('Error in place_order:', str(e))
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/checkout')
 def checkout():
